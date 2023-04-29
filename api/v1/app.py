@@ -3,7 +3,7 @@
 
 from models import storage
 from api.v1.views import app_views
-from flask import Flask
+from flask import Flask, make_response, jsonify
 import os
 
 
@@ -19,6 +19,12 @@ def close_storage(error):
     close_storage(): closes storage in use
     """
     storage.close()
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """Page Not found..."""
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
