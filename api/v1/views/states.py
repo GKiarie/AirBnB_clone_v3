@@ -10,7 +10,7 @@ from flask import jsonify, request, abort
 
 @app_views.route("/states", methods=["GET", "POST"], strict_slashes=False)
 @app_views.route("/states/<state_id>",
-             methods=["GET", "DELETE", "PUT"], strict_slashes=False)
+                 methods=["GET", "DELETE", "PUT"], strict_slashes=False)
 def get_all_states(state_id=None):
     state_objs = storage.all(State).values()
     obj_dicts = [obj.to_dict() for obj in state_objs]
