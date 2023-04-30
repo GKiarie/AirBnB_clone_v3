@@ -4,7 +4,7 @@
 
 from api.v1.views import app_views
 from models import storage
-from models.state import State
+from models.state import Amenity
 from flask import jsonify, request, abort
 
 
