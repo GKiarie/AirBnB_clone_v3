@@ -5,17 +5,16 @@
 from api.v1.views import app_views
 from models import storage
 from models.state import State
-from models.city import City
 from flask import jsonify, request, abort
 
 
-@app_views.route("/states/<state_id>/cities",
-                 methods=["GET", "POST"], strict_slashes=False)
-def get_city_by_state_id(state_id):
+@app_views.route("/states", methods=["GET", "POST"], strict_slashes=False)
+@app_views.route("/states/<state_id>",
+                 methods=["GET", "DELETE", "PUT"], strict_slashes=False)
+def get_all_states(state_id=None):
     state_objs = storage.all(State).values()
     obj_dicts = [obj.to_dict() for obj in state_objs]
     if not state_id:
-        abort(404)
         if request.method == "GET":
             return jsonify(obj_dicts), 200
         elif request.method == "POST":
