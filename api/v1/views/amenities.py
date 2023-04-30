@@ -38,7 +38,10 @@ def get_all_amenities(amenity_id=None):
             if not my_dict:
                 abort(400, "Not a JSON")
             else:
-                obj = Amenity(**my_dict)
+                ignore_keys = ["id", "created_at", "updated_at"]
+                my_dict = {key: value for key, value in my_dict.items() if key
+                           not in ignore_keys}
+                obj.__dict__.update(my_dict)
                 obj.save()
                 return jsonify(obj.to_dict()), 201
         elif request.method == "DELETE":
